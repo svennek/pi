@@ -733,6 +733,20 @@
       "description": "No effect in regular TUI mode.",
       "default": true
     },
+    "fullscreenCopyTarget": {
+      "anyOf": [
+        {
+          "type": "string",
+          "const": "clipboard"
+        },
+        {
+          "type": "string",
+          "const": "primary"
+        }
+      ],
+      "description": "Wayland/X11 clipboard target for fullscreen copy-on-select. `primary` uses the selection buffer (middle-click paste). No effect in regular TUI mode.",
+      "default": "clipboard"
+    },
     "fullscreenWheelScrollLines": {
       "anyOf": [
         {

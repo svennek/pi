@@ -131,6 +131,7 @@ describe("createInteractiveTui", () => {
 				session: {
 					settingsManager: {
 						getFullscreenCopyOnSelect: () => boolean;
+						getFullscreenCopyTarget: () => "clipboard" | "primary";
 						getFullscreenWheelScrollLines: () => WheelScrollLines;
 					};
 				};
@@ -145,7 +146,11 @@ describe("createInteractiveTui", () => {
 		const context = Object.assign(Object.create(InteractiveMode.prototype), {
 			runtimeHost: {
 				session: {
-					settingsManager: { getFullscreenCopyOnSelect: () => true, getFullscreenWheelScrollLines: () => "auto" },
+					settingsManager: {
+						getFullscreenCopyOnSelect: () => true,
+						getFullscreenCopyTarget: () => "clipboard",
+						getFullscreenWheelScrollLines: () => "auto",
+					},
 				},
 			},
 			renderer,
@@ -256,7 +261,7 @@ describe("InteractiveMode copy confirmation", () => {
 			await terminal.waitForRender();
 
 			expect(clipboardMocks.copyToClipboard).toHaveBeenCalledOnce();
-			expect(clipboardMocks.copyToClipboard).toHaveBeenCalledWith("alpha\nbeta");
+			expect(clipboardMocks.copyToClipboard).toHaveBeenCalledWith("alpha\nbeta", undefined);
 			expect(getLastAssistantText).not.toHaveBeenCalled();
 			expect(showStatus).not.toHaveBeenCalled();
 			expect(showError).not.toHaveBeenCalled();
