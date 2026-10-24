@@ -777,6 +777,12 @@ export class SettingsSelectorComponent extends Container {
 			},
 		];
 
+		// Only show copy target on Linux (primary selection is a Linux concept)
+		if (process.platform !== "linux") {
+			const copyTargetIdx = items.findIndex((item) => item.id === "fullscreen-copy-target");
+			if (copyTargetIdx !== -1) items.splice(copyTargetIdx, 1);
+		}
+
 		// Only show image toggle if terminal supports it
 		if (supportsImages) {
 			// Insert after autocompact
